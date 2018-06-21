@@ -1,0 +1,7 @@
+*.bak
+*~
+.*.swp
+.build
+.perlcritic_package.yml
+Test-Spelling-Comment-*
+tmp

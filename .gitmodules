@@ -1,0 +1,3 @@
+[submodule "dzil-inc"]
+	path = dzil-inc
+	url = ../dzil-inc.git
