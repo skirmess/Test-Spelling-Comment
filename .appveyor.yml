@@ -14,18 +14,6 @@ environment:
       AUTHOR_TESTING: 1
 
     - PERL_TYPE: strawberry
-      PERL_VERSION: 5.8.9
-      STRAWBERRY_URL: http://strawberryperl.com/download/5.8.9/strawberry-perl-5.8.9.5.zip
-
-    - PERL_TYPE: strawberry
-      PERL_VERSION: 5.10.0
-      STRAWBERRY_URL: http://strawberryperl.com/download/5.10.0/strawberry-perl-5.10.0.6.zip
-
-    - PERL_TYPE: strawberry
-      PERL_VERSION: 5.10.1
-      STRAWBERRY_URL: http://strawberryperl.com/download/5.10.1.5/strawberry-perl-5.10.1.5.zip
-
-    - PERL_TYPE: strawberry
       PERL_VERSION: 5.12.3
       STRAWBERRY_URL: http://strawberryperl.com/download/5.12.3.0/strawberry-perl-5.12.3.0-64bit.zip
 
