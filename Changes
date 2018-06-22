@@ -2,6 +2,8 @@ Revision history for Test-Spelling-Comment
 
 {{$NEXT}}
 
+0.002  2018-06-22 22:39:27 UTC
+
   - add_stopwords returns $self instead of undef to allow chaining
   - fixed abstract
 
