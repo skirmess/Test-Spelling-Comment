@@ -9,9 +9,7 @@ Version 0.001
 # SYNOPSIS
 
     use Test::Spelling::Comment;
-    my $tsc = Test::Spelling::Comment->new;
-    $tsc->add_stopwords(<DATA>);
-    $tsc->all_files_ok();
+    Test::Spelling::Comment->new->add_stopwords(<DATA>)->all_files_ok();
 
 # DESCRIPTION
 
@@ -66,6 +64,20 @@ and _false_ otherwise.
 
 Filenames ending with a `~` are always ignored.
 
+## add\_stopwords( @entries )
+
+Adds the words passed in `@entries` as stopwords. These words are not
+passed to the spell checker and are therefore accepted as correct.
+
+The `add_stopwords` method always returns `$self` and can therefore be
+used to chain methods together.
+
+This method can be called multiple times.
+
+This method only adds the words as passed in `@entries`. Unlike
+`learn_stopwords` from [Pod::Wordlist](https://metacpan.org/pod/Pod::Wordlist) it does not add the
+words plural too.
+
 # EXAMPLES
 
 ## Example 1 Default Usage
@@ -77,16 +89,15 @@ directory.
     use strict;
     use warnings;
 
-    use Test::Spelling::Comment;
+    use Test::Spelling::Comment 0.002;
 
     if ( exists $ENV{AUTOMATED_TESTING} ) {
         print "1..0 # SKIP these tests during AUTOMATED_TESTING\n";
         exit 0;
     }
 
-    my $tsc = Test::Spelling::Comment->new;
-    $tsc->add_stopwords(<DATA>);
-    $tsc->all_files_ok();
+    Test::Spelling::Comment->new->add_stopwords(<DATA>)->all_files_ok();
+
     __DATA__
     your
     stopwords
@@ -99,15 +110,14 @@ directory.
     use strict;
     use warnings;
 
-    use Test::Spelling::Comment;
+    use Test::Spelling::Comment 0.002;
 
     if ( exists $ENV{AUTOMATED_TESTING} ) {
         print "1..0 # SKIP these tests during AUTOMATED_TESTING\n";
         exit 0;
     }
 
-    my $tsc = Test::Spelling::Comment->new;
-    $tsc->all_files_ok(qw(
+    Test::Spelling::Comment->new->all_files_ok(qw(
         corpus/hello.pl
         lib
         tools
@@ -127,9 +137,9 @@ directory.
         exit 0;
     }
 
-    my $tsc = Test::Spelling::Comment->new;
-    $tsc->file_ok('corpus/hello.pl');
-    $tsc->file_ok('tools/update.pl');
+    my $comment = Test::Spelling::Comment->new;
+    $comment->file_ok('corpus/hello.pl');
+    $comment->file_ok('tools/update.pl');
 
     done_testing();
 

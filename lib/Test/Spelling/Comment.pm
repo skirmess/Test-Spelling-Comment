@@ -38,19 +38,19 @@ sub add_stopwords {
 
     my $wordlist = $self->_stopwords->wordlist;
 
-  WORD:
+  STOPWORD:
     for (@_) {
 
         # explicit copy
-        my $word = $_;
-        $word =~ s{ ^ \s* }{}xsm;
-        $word =~ s{ \s+ $ }{}xsm;
-        next WORD if $word eq q{};
+        my $stopword = $_;
+        $stopword =~ s{ ^ \s* }{}xsm;
+        $stopword =~ s{ \s+ $ }{}xsm;
+        next STOPWORD if $stopword eq q{};
 
-        $wordlist->{$word} = 1;
+        $wordlist->{$stopword} = 1;
     }
 
-    return;
+    return $self;
 }
 
 sub all_files_ok {
@@ -200,10 +200,7 @@ Version 0.001
 =head1 SYNOPSIS
 
     use Test::Spelling::Comment;
-    my $tsc = Test::Spelling::Comment->new;
-    $tsc->add_stopwords(<DATA>);
-    $tsc->all_files_ok();
-
+    Test::Spelling::Comment->new->add_stopwords(<DATA>)->all_files_ok();
 
 =head1 DESCRIPTION
 
@@ -258,6 +255,20 @@ and I<false> otherwise.
 
 Filenames ending with a C<~> are always ignored.
 
+=head2 add_stopwords( @entries )
+
+Adds the words passed in C<@entries> as stopwords. These words are not
+passed to the spell checker and are therefore accepted as correct.
+
+The C<add_stopwords> method always returns C<$self> and can therefore be
+used to chain methods together.
+
+This method can be called multiple times.
+
+This method only adds the words as passed in C<@entries>. Unlike
+C<learn_stopwords> from L<Pod::Wordlist|Pod::Wordlist> it does not add the
+words plural too.
+
 =head1 EXAMPLES
 
 =head2 Example 1 Default Usage
@@ -269,16 +280,15 @@ directory.
     use strict;
     use warnings;
 
-    use Test::Spelling::Comment;
+    use Test::Spelling::Comment 0.002;
 
     if ( exists $ENV{AUTOMATED_TESTING} ) {
         print "1..0 # SKIP these tests during AUTOMATED_TESTING\n";
         exit 0;
     }
 
-    my $tsc = Test::Spelling::Comment->new;
-    $tsc->add_stopwords(<DATA>);
-    $tsc->all_files_ok();
+    Test::Spelling::Comment->new->add_stopwords(<DATA>)->all_files_ok();
+
     __DATA__
     your
     stopwords
@@ -291,15 +301,14 @@ directory.
     use strict;
     use warnings;
 
-    use Test::Spelling::Comment;
+    use Test::Spelling::Comment 0.002;
 
     if ( exists $ENV{AUTOMATED_TESTING} ) {
         print "1..0 # SKIP these tests during AUTOMATED_TESTING\n";
         exit 0;
     }
 
-    my $tsc = Test::Spelling::Comment->new;
-    $tsc->all_files_ok(qw(
+    Test::Spelling::Comment->new->all_files_ok(qw(
         corpus/hello.pl
         lib
         tools
@@ -319,9 +328,9 @@ directory.
         exit 0;
     }
 
-    my $tsc = Test::Spelling::Comment->new;
-    $tsc->file_ok('corpus/hello.pl');
-    $tsc->file_ok('tools/update.pl');
+    my $comment = Test::Spelling::Comment->new;
+    $comment->file_ok('corpus/hello.pl');
+    $comment->file_ok('tools/update.pl');
 
     done_testing();
 

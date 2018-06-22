@@ -156,7 +156,7 @@ forbid_use_version = 1
 [ValuesAndExpressions::ProhibitSpecialLiteralHeredocTerminator]
 [ValuesAndExpressions::ProhibitVersionStrings]
 [ValuesAndExpressions::RequireConstantVersion]
-[ValuesAndExpressions::RequireInterpolationOfMetachars]
+#[ValuesAndExpressions::RequireInterpolationOfMetachars]
 [ValuesAndExpressions::RequireNumberSeparators]
 [ValuesAndExpressions::RequireQuotedHeredocTerminator]
 [ValuesAndExpressions::RequireUpperCaseHeredocTerminator]

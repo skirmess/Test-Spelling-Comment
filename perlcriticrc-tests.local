@@ -6,3 +6,4 @@ flowcontrol = BAIL_OUT die skip
 [-RegularExpressions::RequireLineBoundaryMatching]
 [Subroutines::RequireFinalReturn]
 terminal_funcs = BAIL_OUT
+[-ValuesAndExpressions::RequireInterpolationOfMetachars]
