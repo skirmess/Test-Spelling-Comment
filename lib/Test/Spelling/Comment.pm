@@ -191,7 +191,7 @@ __END__
 
 =head1 NAME
 
-Test::Spelling::Comment - Check for spelling errors in code comments
+Test::Spelling::Comment - check for spelling errors in code comments
 
 =head1 VERSION
 

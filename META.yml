@@ -1,5 +1,5 @@
 ---
-abstract: 'Check for spelling errors in code comments'
+abstract: 'check for spelling errors in code comments'
 author:
   - 'Sven Kirmess <sven.kirmess@kzone.ch>'
 build_requires:
