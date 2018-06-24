@@ -8,7 +8,7 @@ use Test::More 0.88;
 
 use Scalar::Util qw(refaddr);
 
-use Test::Spelling::Comment;
+use Test::Spelling::Comment 0.003;
 
 main();
 

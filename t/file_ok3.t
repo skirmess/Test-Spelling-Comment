@@ -15,7 +15,7 @@ use subs qw(close);
 
 package main;
 
-use Test::Spelling::Comment;
+use Test::Spelling::Comment 0.003;
 
 main();
 

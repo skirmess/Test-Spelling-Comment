@@ -12,7 +12,7 @@ use Test::TempDir::Tiny;
 
 use File::Spec;
 
-use Test::Spelling::Comment;
+use Test::Spelling::Comment 0.003;
 
 main();
 

@@ -7,7 +7,7 @@ use warnings;
 use Test::Fatal;
 use Test::More 0.88;
 
-use Test::Spelling::Comment;
+use Test::Spelling::Comment 0.003;
 
 use FindBin qw($RealBin);
 use lib "$RealBin/lib";
