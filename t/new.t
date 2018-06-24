@@ -42,6 +42,26 @@ sub main {
         isa_ok( $obj->_stopwords, 'Local::Pod::Wordlist', q{... _stopwords returns a 'Local::Pod::Wordlist'} );
     }
 
+    {
+        my $obj = $class->new;
+        is( $obj->_skip, undef, '_skip is initialized to undef' );
+    }
+
+    {
+        my $obj = $class->new( skip => qr{^[#] vim: } );
+        is( $obj->_skip, qr{^[#] vim: }, 'skip accepts a pattern' );
+    }
+
+    {
+        my $obj = $class->new( skip => 'hello world' );
+        is( $obj->_skip, 'hello world', 'skip accepts a string' );
+    }
+
+    {
+        my $obj = $class->new( skip => [qw(hello world)] );
+        is_deeply( $obj->_skip, [qw(hello world)], 'skip accepts an array ref' );
+    }
+
     #
     done_testing();
 

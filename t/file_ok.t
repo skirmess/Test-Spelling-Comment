@@ -10,6 +10,8 @@ use Test::MockModule;
 use Test::More 0.88;
 use Test::TempDir::Tiny;
 
+use File::Spec;
+
 use Test::Spelling::Comment;
 
 main();
@@ -32,8 +34,8 @@ sub main {
         my $obj = $class->new;
 
         #
-        my $tmp               = tempdir();
-        my $non_existing_file = "$tmp/no_such_file";
+        my $tmp = tempdir();
+        my $non_existing_file = File::Spec->catfile( $tmp, 'no_such_file' );
 
         #
         test_out("not ok 1 - $non_existing_file");
@@ -48,17 +50,19 @@ sub main {
 
     note('file exists, without spelling errors');
     {
-        my $tmp  = tempdir();
-        my $file = "$tmp/file.pm";
+        my $tmp = tempdir();
+        my $file = File::Spec->catfile( $tmp, 'file.pm' );
 
-        _touch($file);
+        my $string_orig = "hello world\nfrom\nfile\n";
+        _touch( $file, $string_orig );
 
         my $module = Test::MockModule->new('Comment::Spell::Check');
 
         my $result_print;
         my $result_return = { counts => {}, fails => [] };
 
-        $module->mock( 'parse_from_file', sub { $_[0]->output_filehandle->print($result_print); return $result_return; } );
+        my $string;
+        $module->mock( 'parse_from_string', sub { $_[0]->output_filehandle->print($result_print); $string = $_[1]; return $result_return; } );
 
         my $obj = $class->new;
 
@@ -66,13 +70,130 @@ sub main {
         my $rc = $obj->file_ok($file);
         test_test('file_ok success');
 
+        is( $rc,     1,            '... returns 1' );
+        is( $string, $string_orig, 'parse_from_string got passed the correct file content' );
+    }
+
+    note('skip, single regex');
+    {
+        my $tmp = tempdir();
+        my $file = File::Spec->catfile( $tmp, 'file.pm' );
+
+        my $string_base     = "hello world\nfrom\nfile\n";
+        my $string_orig     = "${string_base}# vim: ts=4 sts=4 sw=4 et: syntax=perl\n";
+        my $string_expected = "${string_base}\n";
+
+        _touch( $file, $string_orig );
+
+        my $module = Test::MockModule->new('Comment::Spell::Check');
+
+        my $result_print;
+        my $result_return = { counts => {}, fails => [] };
+
+        my $string;
+        $module->mock( 'parse_from_string', sub { $_[0]->output_filehandle->print($result_print); $string = $_[1]; return $result_return; } );
+
+        my $obj = $class->new( skip => qr{ ^ [#] [ ] vim: [ ] .*}xs );
+
+        test_out("ok 1 - $file");
+        my $rc = $obj->file_ok($file);
+        test_test('file_ok success');
+
         is( $rc, 1, '... returns 1' );
+        is( $string, $string_expected, 'parse_from_string got passed the correct file content' );
+    }
+
+    note('skip, two regex');
+    {
+        my $tmp = tempdir();
+        my $file = File::Spec->catfile( $tmp, 'file.pm' );
+
+        my $string_base     = "hello world\nfrom\nfile\n";
+        my $string_orig     = "${string_base}# vim: ts=4 sts=4 sw=4 et: syntax=perl\n";
+        my $string_expected = "${string_base}\n";
+
+        _touch( $file, $string_orig );
+
+        my $module = Test::MockModule->new('Comment::Spell::Check');
+
+        my $result_print;
+        my $result_return = { counts => {}, fails => [] };
+
+        my $string;
+        $module->mock( 'parse_from_string', sub { $_[0]->output_filehandle->print($result_print); $string = $_[1]; return $result_return; } );
+
+        my $obj = $class->new( skip => [ qr{this will not match anything}, qr{ ^ [#] [ ] vim: [ ] .*}xs ] );
+
+        test_out("ok 1 - $file");
+        my $rc = $obj->file_ok($file);
+        test_test('file_ok success');
+
+        is( $rc, 1, '... returns 1' );
+        is( $string, $string_expected, 'parse_from_string got passed the correct file content' );
+    }
+
+    note('skip, two regex as string');
+    {
+        my $tmp = tempdir();
+        my $file = File::Spec->catfile( $tmp, 'file.pm' );
+
+        my $string_base     = "hello world\nfrom\nfile\n";
+        my $string_orig     = "${string_base}# vim: ts=4 sts=4 sw=4 et: syntax=perl\n";
+        my $string_expected = "${string_base}\n";
+
+        _touch( $file, $string_orig );
+
+        my $module = Test::MockModule->new('Comment::Spell::Check');
+
+        my $result_print;
+        my $result_return = { counts => {}, fails => [] };
+
+        my $string;
+        $module->mock( 'parse_from_string', sub { $_[0]->output_filehandle->print($result_print); $string = $_[1]; return $result_return; } );
+
+        my $obj = $class->new( skip => [ 'this will not match anything', '^[#][ ]vim:[ ].*' ] );
+
+        test_out("ok 1 - $file");
+        my $rc = $obj->file_ok($file);
+        test_test('file_ok success');
+
+        is( $rc, 1, '... returns 1' );
+        is( $string, $string_expected, 'parse_from_string got passed the correct file content' );
+    }
+
+    note('skip, onw regex as string');
+    {
+        my $tmp = tempdir();
+        my $file = File::Spec->catfile( $tmp, 'file.pm' );
+
+        my $string_base     = "hello world\nfrom\nfile\n";
+        my $string_orig     = "${string_base}# vim: ts=4 sts=4 sw=4 et: syntax=perl\n";
+        my $string_expected = "${string_base}\n";
+
+        _touch( $file, $string_orig );
+
+        my $module = Test::MockModule->new('Comment::Spell::Check');
+
+        my $result_print;
+        my $result_return = { counts => {}, fails => [] };
+
+        my $string;
+        $module->mock( 'parse_from_string', sub { $_[0]->output_filehandle->print($result_print); $string = $_[1]; return $result_return; } );
+
+        my $obj = $class->new( skip => '^[#][ ]vim:[ ].*' );
+
+        test_out("ok 1 - $file");
+        my $rc = $obj->file_ok($file);
+        test_test('file_ok success');
+
+        is( $rc, 1, '... returns 1' );
+        is( $string, $string_expected, 'parse_from_string got passed the correct file content' );
     }
 
     note('file exists, with spelling errors');
     {
-        my $tmp  = tempdir();
-        my $file = "$tmp/file.pm";
+        my $tmp = tempdir();
+        my $file = File::Spec->catfile( $tmp, 'file.pm' );
 
         _touch($file);
 
@@ -84,7 +205,7 @@ sub main {
             fails  => [ { counts => { helol => 1, wordl => 1 }, line => 2 } ],
         };
 
-        $module->mock( 'parse_from_file', sub { $_[0]->output_filehandle->print($result_print); return $result_return; } );
+        $module->mock( 'parse_from_string', sub { $_[0]->output_filehandle->print($result_print); return $result_return; } );
 
         my $obj = $class->new;
 
@@ -103,14 +224,14 @@ sub main {
 
     note('file exists, Comment::Spell::Check throws an exception, without stopwords');
     {
-        my $tmp  = tempdir();
-        my $file = "$tmp/file.pm";
+        my $tmp = tempdir();
+        my $file = File::Spec->catfile( $tmp, 'file.pm' );
 
         _touch($file);
 
         my $module = Test::MockModule->new('Comment::Spell::Check');
 
-        $module->mock( 'parse_from_file', sub { die "PARSE FROM FILE FAILED\n"; } );
+        $module->mock( 'parse_from_string', sub { die "PARSE FROM STRING FAILED\n"; } );
 
         my $new_args_ref;
         $module->mock( 'new', sub { $new_args_ref = [@_]; $module->original('new')->(@_); } );
@@ -120,7 +241,7 @@ sub main {
         test_out("not ok 1 - $file");
         test_fail(+4);
         test_diag(q{});
-        test_diag('PARSE FROM FILE FAILED');
+        test_diag('PARSE FROM STRING FAILED');
         test_diag( q{}, q{} );
         my $rc = $obj->file_ok($file);
         test_test('file_ok failure');
@@ -133,14 +254,14 @@ sub main {
 
     note('file exists, Comment::Spell::Check throws an exception, with stopwords');
     {
-        my $tmp  = tempdir();
-        my $file = "$tmp/file.pm";
+        my $tmp = tempdir();
+        my $file = File::Spec->catfile( $tmp, 'file.pm' );
 
         _touch($file);
 
         my $module = Test::MockModule->new('Comment::Spell::Check');
 
-        $module->mock( 'parse_from_file', sub { die "PARSE FROM FILE FAILED\n"; } );
+        $module->mock( 'parse_from_string', sub { die "PARSE FROM FILE FAILED\n"; } );
 
         my $new_args_ref;
         $module->mock( 'new', sub { $new_args_ref = [@_]; $module->original('new')->(@_); } );

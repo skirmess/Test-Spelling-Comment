@@ -15,6 +15,11 @@ use Pod::Wordlist         ();
 use Scalar::Util          ();
 use Test::Builder         ();
 
+has _skip => (
+    is       => 'ro',
+    init_arg => 'skip',
+);
+
 has _stopwords => (
     is        => 'ro',
     isa       => sub { Carp::croak q{stopwords must have method 'wordlist'} if !Scalar::Util::blessed( $_[0] ) || !$_[0]->can('wordlist'); },
@@ -132,11 +137,50 @@ sub file_ok {
         return;
     }
 
+    my $fh;
+    if ( !open $fh, '<', $file ) {
+        $TEST->ok( 0, $file );
+        $TEST->diag("\n");
+        $TEST->diag("Cannot read file '$file': $!");
+
+        return;
+    }
+
+    my @lines = <$fh>;
+    chomp @lines;
+
+    if ( !close $fh ) {
+        $TEST->ok( 0, $file );
+        $TEST->diag("\n");
+        $TEST->diag("Cannot read file '$file': $!");
+
+        return;
+    }
+
+    my $skips_ref = $self->_skip;
+    if ( defined $skips_ref ) {
+        if (   ( !defined Scalar::Util::reftype($skips_ref) )
+            || ( Scalar::Util::reftype($skips_ref) ne Scalar::Util::reftype( [] ) ) )
+        {
+            $skips_ref = [$skips_ref];
+        }
+
+        for my $line (@lines) {
+            for my $skip ( @{$skips_ref} ) {
+                ## no critic (RegularExpressions::RequireDotMatchAnything)
+                ## no critic (RegularExpressions::RequireExtendedFormatting)
+                ## no critic (RegularExpressions::RequireLineBoundaryMatching)
+                $line =~ s{$skip}{};
+                ## use critic
+            }
+        }
+    }
+
     my $speller = Comment::Spell::Check->new( $self->_has_stopwords ? ( stopwords => $self->_stopwords ) : () );
     my $buf;
     $speller->set_output_string($buf);
     my $result;
-    if ( !eval { $result = $speller->parse_from_file($file); 1 } ) {
+    if ( !eval { $result = $speller->parse_from_string( join "\n", @lines, q{} ); 1 } ) {
         my $error_msg = $@;
         $TEST->ok( 0, $file );
         $TEST->diag("\n$error_msg\n\n");
@@ -221,10 +265,23 @@ Returns a new C<Test::Spelling::Comment> instance. C<new> takes an optional
 hash with its arguments.
 
     Test::Spelling::Comment->new(
+        skip      => pattern,
         stopwords => Pod::Wordlist,
     );
 
 The following arguments are supported:
+
+=head3 skip (optional)
+
+The C<skip> argument is either a string or an array ref of strings or regex
+patterns. Every pattern is substituted for the empty string on every line of
+the input file. This happens before passing the file over to
+L<Comment::Spell::Check|Comment::Spell::Check> for spell checking.
+
+Use this option to remove parts of the file that would otherwise require you
+to add multiple C<stopwords>. En example would be lines like these:
+
+    # vim: ts=4 sts=4 sw=4 et: syntax=perl
 
 =head3 stopwords (optional)
 
@@ -333,6 +390,32 @@ directory.
     $comment->file_ok('tools/update.pl');
 
     done_testing();
+
+=head2 Example 4 Skip vim line
+
+Check the spelling in all files in the F<bin>, F<script> and F<lib>
+directory and remove the C<vim> comment.
+
+    use 5.006;
+    use strict;
+    use warnings;
+
+    use Test::Spelling::Comment 0.003;
+
+    if ( exists $ENV{AUTOMATED_TESTING} ) {
+        print "1..0 # SKIP these tests during AUTOMATED_TESTING\n";
+        exit 0;
+    }
+
+    Test::Spelling::Comment->new(
+        skip => '^# vim: .*'
+    )->add_stopwords(<DATA>)->all_files_ok();
+
+    __DATA__
+    your
+    stopwords
+    go
+    here
 
 =head1 SEE ALSO
 

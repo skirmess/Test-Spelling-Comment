@@ -29,6 +29,7 @@ my %WriteMakefileArgs = (
   },
   "TEST_REQUIRES" => {
     "Cwd" => 0,
+    "File::Spec" => 0,
     "FindBin" => 0,
     "POSIX" => 0,
     "Test::Builder::Tester" => 0,
@@ -36,7 +37,8 @@ my %WriteMakefileArgs = (
     "Test::MockModule" => 0,
     "Test::More" => "0.88",
     "Test::TempDir::Tiny" => "0.017",
-    "lib" => 0
+    "lib" => 0,
+    "subs" => 0
   },
   "VERSION" => "0.002",
   "test" => {
@@ -50,6 +52,7 @@ my %FallbackPrereqs = (
   "Comment::Spell::Check" => 0,
   "Cwd" => 0,
   "File::Find" => 0,
+  "File::Spec" => 0,
   "FindBin" => 0,
   "Moo" => 0,
   "POSIX" => 0,
@@ -63,6 +66,7 @@ my %FallbackPrereqs = (
   "Test::TempDir::Tiny" => "0.017",
   "lib" => 0,
   "strict" => 0,
+  "subs" => 0,
   "warnings" => 0
 );
 

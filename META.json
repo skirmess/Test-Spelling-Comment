@@ -43,6 +43,7 @@
       "test" : {
          "requires" : {
             "Cwd" : "0",
+            "File::Spec" : "0",
             "FindBin" : "0",
             "POSIX" : "0",
             "Test::Builder::Tester" : "0",
@@ -51,7 +52,8 @@
             "Test::More" : "0.88",
             "Test::TempDir::Tiny" : "0.017",
             "lib" : "0",
-            "perl" : "5.006"
+            "perl" : "5.006",
+            "subs" : "0"
          }
       }
    },

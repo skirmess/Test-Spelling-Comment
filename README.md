@@ -30,10 +30,23 @@ Returns a new `Test::Spelling::Comment` instance. `new` takes an optional
 hash with its arguments.
 
     Test::Spelling::Comment->new(
+        skip      => pattern,
         stopwords => Pod::Wordlist,
     );
 
 The following arguments are supported:
+
+### skip (optional)
+
+The `skip` argument is either a string or an array ref of strings or regex
+patterns. Every pattern is substituted for the empty string on every line of
+the input file. This happens before passing the file over to
+[Comment::Spell::Check](https://metacpan.org/pod/Comment::Spell::Check) for spell checking.
+
+Use this option to remove parts of the file that would otherwise require you
+to add multiple `stopwords`. En example would be lines like these:
+
+    # vim: ts=4 sts=4 sw=4 et: syntax=perl
 
 ### stopwords (optional)
 
@@ -142,6 +155,32 @@ directory.
     $comment->file_ok('tools/update.pl');
 
     done_testing();
+
+## Example 4 Skip vim line
+
+Check the spelling in all files in the `bin`, `script` and `lib`
+directory and remove the `vim` comment.
+
+    use 5.006;
+    use strict;
+    use warnings;
+
+    use Test::Spelling::Comment 0.003;
+
+    if ( exists $ENV{AUTOMATED_TESTING} ) {
+        print "1..0 # SKIP these tests during AUTOMATED_TESTING\n";
+        exit 0;
+    }
+
+    Test::Spelling::Comment->new(
+        skip => '^# vim: .*'
+    )->add_stopwords(<DATA>)->all_files_ok();
+
+    __DATA__
+    your
+    stopwords
+    go
+    here
 
 # SEE ALSO
 

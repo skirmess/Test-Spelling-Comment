@@ -16,6 +16,7 @@ on configure => sub {
 
 on test => sub {
     requires 'Cwd';
+    requires 'File::Spec';
     requires 'FindBin';
     requires 'POSIX';
     requires 'Test::Builder::Tester';
@@ -25,6 +26,7 @@ on test => sub {
     requires 'Test::TempDir::Tiny', '0.017';
     requires 'lib';
     requires 'perl', '5.006';
+    requires 'subs';
 };
 
 on develop => sub {

@@ -1,6 +1,7 @@
 [-Bangs::ProhibitNumberedNames]
 [ControlStructures::ProhibitPostfixControls]
 flowcontrol = BAIL_OUT die skip
+[-Modules::ProhibitMultiplePackages]
 [-RegularExpressions::RequireDotMatchAnything]
 [-RegularExpressions::RequireExtendedFormatting]
 [-RegularExpressions::RequireLineBoundaryMatching]
