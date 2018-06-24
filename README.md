@@ -4,7 +4,7 @@ Test::Spelling::Comment - check for spelling errors in code comments
 
 # VERSION
 
-Version 0.002
+Version 0.003
 
 # SYNOPSIS
 
