@@ -32,7 +32,7 @@ no_index:
 provides:
   Test::Spelling::Comment:
     file: lib/Test/Spelling/Comment.pm
-    version: '0.003'
+    version: '0.004'
 requires:
   Carp: '0'
   Comment::Spell::Check: '0'
@@ -48,6 +48,6 @@ resources:
   bugtracker: https://github.com/skirmess/Test-Spelling-Comment/issues
   homepage: https://github.com/skirmess/Test-Spelling-Comment
   repository: https://github.com/skirmess/Test-Spelling-Comment.git
-version: '0.003'
+version: '0.004'
 x_generated_by_perl: v5.24.0
 x_serialization_backend: 'YAML::Tiny version 1.70'

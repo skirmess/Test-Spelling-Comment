@@ -2,6 +2,8 @@ Revision history for Test-Spelling-Comment
 
 {{$NEXT}}
 
+0.004  2018-06-25 18:13:37 UTC
+
   - Use g flag for the substitution with the skip patterns
 
 0.003  2018-06-24 19:35:33 UTC
