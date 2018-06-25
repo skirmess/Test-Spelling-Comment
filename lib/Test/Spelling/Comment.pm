@@ -170,7 +170,7 @@ sub file_ok {
                 ## no critic (RegularExpressions::RequireDotMatchAnything)
                 ## no critic (RegularExpressions::RequireExtendedFormatting)
                 ## no critic (RegularExpressions::RequireLineBoundaryMatching)
-                $line =~ s{$skip}{};
+                $line =~ s{$skip}{}g;
                 ## use critic
             }
         }

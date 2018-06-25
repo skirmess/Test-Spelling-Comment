@@ -161,7 +161,7 @@ sub main {
         is( $string, $string_expected, 'parse_from_string got passed the correct file content' );
     }
 
-    note('skip, onw regex as string');
+    note('skip, one regex as string');
     {
         my $tmp = tempdir();
         my $file = File::Spec->catfile( $tmp, 'file.pm' );
@@ -181,6 +181,34 @@ sub main {
         $module->mock( 'parse_from_string', sub { $_[0]->output_filehandle->print($result_print); $string = $_[1]; return $result_return; } );
 
         my $obj = $class->new( skip => '^[#][ ]vim:[ ].*' );
+
+        test_out("ok 1 - $file");
+        my $rc = $obj->file_ok($file);
+        test_test('file_ok success');
+
+        is( $rc, 1, '... returns 1' );
+        is( $string, $string_expected, 'parse_from_string got passed the correct file content' );
+    }
+
+    note('skip twice on same line');
+    {
+        my $tmp = tempdir();
+        my $file = File::Spec->catfile( $tmp, 'file.pm' );
+
+        my $string_orig     = "hello world\nfrom http://url HTTP://another\nfile\nhttps://third xx";
+        my $string_expected = "hello world\nfrom  \nfile\n xx\n";
+
+        _touch( $file, $string_orig );
+
+        my $module = Test::MockModule->new('Comment::Spell::Check');
+
+        my $result_print;
+        my $result_return = { counts => {}, fails => [] };
+
+        my $string;
+        $module->mock( 'parse_from_string', sub { $_[0]->output_filehandle->print($result_print); $string = $_[1]; return $result_return; } );
+
+        my $obj = $class->new( skip => '(?i)http(s)?://[^\s]+' );
 
         test_out("ok 1 - $file");
         my $rc = $obj->file_ok($file);
