@@ -279,7 +279,7 @@ the input file. This happens before passing the file over to
 L<Comment::Spell::Check|Comment::Spell::Check> for spell checking.
 
 Use this option to remove parts of the file that would otherwise require you
-to add multiple C<stopwords>. En example would be lines like these:
+to add multiple C<stopwords>. An example would be lines like these:
 
     # vim: ts=4 sts=4 sw=4 et: syntax=perl
 
