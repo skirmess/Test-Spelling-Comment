@@ -112,7 +112,7 @@ sub all_files_ok {
     }
 
     my $rc = 1;
-    for my $file ( grep { $_ !~ m{ [~] $ }xsm } @files ) {
+    for my $file ( grep { !m{ [~] $ }xsm } @files ) {
         if ( !$self->file_ok($file) ) {
             $rc = 0;
         }

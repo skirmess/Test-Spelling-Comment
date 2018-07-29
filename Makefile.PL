@@ -36,7 +36,7 @@ my %WriteMakefileArgs = (
     "Test::Fatal" => 0,
     "Test::MockModule" => 0,
     "Test::More" => "0.88",
-    "Test::TempDir::Tiny" => "0.017",
+    "Test::TempDir::Tiny" => 0,
     "lib" => 0,
     "subs" => 0
   },
@@ -63,7 +63,7 @@ my %FallbackPrereqs = (
   "Test::Fatal" => 0,
   "Test::MockModule" => 0,
   "Test::More" => "0.88",
-  "Test::TempDir::Tiny" => "0.017",
+  "Test::TempDir::Tiny" => 0,
   "lib" => 0,
   "strict" => 0,
   "subs" => 0,

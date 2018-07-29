@@ -1,7 +1,5 @@
-
 Comment::Spell::Check 0.002001 requires Moo 0
   - Moo 2.003004 requires Class::Method::Modifiers 1.1
     - Class::Method::Modifiers 2.12 requires Test::Requires 0
       - Test::Requires 0.10 requires ExtUtils::MakeMaker 6.64
         - ExtUtils::MakeMaker 7.34 does not build on Strawberry
-
