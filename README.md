@@ -9,7 +9,7 @@ Version 0.004
 # SYNOPSIS
 
     use Test::Spelling::Comment;
-    Test::Spelling::Comment->new->add_stopwords(<DATA>)->all_files_ok();
+    Test::Spelling::Comment->new->add_stopwords(<DATA>)->all_files_ok;
 
 # DESCRIPTION
 
@@ -60,22 +60,22 @@ or something compatible. You can use that argument to configure
 error is found in the code comments. Otherwise it fails the test and returns
 something _false_.
 
-## all\_files\_ok( \[ @entries \] )
+## all\_files\_ok
 
-Checks all the spelling of the code comments in all files under `@entries`
-by calling `file_ok` on every file. Directories are recursive searched for
-files. Everything not a file and not a directory (e.g. a symlink) is
-ignored. It calls `done_testing` or `skip_all` so you can't have already
-called `plan`.
+Calls the `all_files` method of [Test::XTFiles](https://metacpan.org/pod/Test::XTFiles) to get all the files to
+be tested. All files will be checked by calling `file_ok`.
 
-If `@entries` is empty default directories are searched for files. The
-default directories are `blib`, or `lib` if it doesn't exist, `bin` and
-`script`.
+It calls `done_testing` or `skip_all` so you can't have already called
+`plan`.
 
-`all_files_ok` returns something _true_ if no spelling errors were found
-and _false_ otherwise.
+`all_files_ok` returns something _true_ if all files test ok and _false_
+otherwise.
 
-Filenames ending with a `~` are always ignored.
+Please see [XT::Files](https://metacpan.org/pod/XT::Files) for how to configure the files to be checked.
+
+WARNING: The API was changed with 0.005. Arguments to `all_files_ok`
+are now silently discarded and the method is now configured with
+[XT::Files](https://metacpan.org/pod/XT::Files).
 
 ## add\_stopwords( @entries )
 
@@ -109,7 +109,7 @@ directory.
         exit 0;
     }
 
-    Test::Spelling::Comment->new->add_stopwords(<DATA>)->all_files_ok();
+    Test::Spelling::Comment->new->add_stopwords(<DATA>)->all_files_ok;
 
     __DATA__
     your
@@ -119,22 +119,16 @@ directory.
 
 ## Example 2 Check non-default directories or files
 
-    use 5.006;
-    use strict;
-    use warnings;
+Use the same test file as in Example 1 and create a `.xtfilesrc` config
+file in the root directory of your distribution.
 
-    use Test::Spelling::Comment 0.002;
+    [Dirs]
+    module = lib
+    module = tools
+    module = corpus/hello
 
-    if ( exists $ENV{AUTOMATED_TESTING} ) {
-        print "1..0 # SKIP these tests during AUTOMATED_TESTING\n";
-        exit 0;
-    }
-
-    Test::Spelling::Comment->new->all_files_ok(qw(
-        corpus/hello.pl
-        lib
-        tools
-    ));
+    [Files]
+    module = corpus/my.pm
 
 ## Example 3 Call `file_ok` directly
 
@@ -185,7 +179,8 @@ directory and remove the `vim` comment.
 # SEE ALSO
 
 [Comment::Spell::Check](https://metacpan.org/pod/Comment::Spell::Check),
-[Comment::Spell](https://metacpan.org/pod/Comment::Spell), [Test::More](https://metacpan.org/pod/Test::More)
+[Comment::Spell](https://metacpan.org/pod/Comment::Spell), [Test::More](https://metacpan.org/pod/Test::More),
+[XT::Files](https://metacpan.org/pod/XT::Files)
 
 # SUPPORT
 
@@ -210,7 +205,7 @@ Sven Kirmess <sven.kirmess@kzone.ch>
 
 # COPYRIGHT AND LICENSE
 
-This software is Copyright (c) 2018 by Sven Kirmess.
+This software is Copyright (c) 2018-2019 by Sven Kirmess.
 
 This is free software, licensed under:
 

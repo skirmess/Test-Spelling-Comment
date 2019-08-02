@@ -1,6 +1,8 @@
 Revision history for Test-Spelling-Comment
 
 {{$NEXT}}
+  - API change: all_files_ok() no longer takes files or directories as
+    arguments. The files to be tested is now obtained from XT::Files.
 
 0.004  2018-06-25 18:13:37 UTC
 
