@@ -31,6 +31,7 @@ on develop => sub {
     requires 'CPANPLUS';
     requires 'FindBin';
     requires 'JSON::MaybeXS';
+    requires 'Module::Info';
     requires 'Path::Tiny';
     requires 'Perl::Critic', '1.134';
     requires 'Perl::Critic::MergeProfile';
@@ -118,7 +119,7 @@ on develop => sub {
     requires 'Perl::Critic::Policy::ValuesAndExpressions::RequireNumericVersion', '96';
     requires 'Perl::Critic::Policy::ValuesAndExpressions::UnexpandedSpecialLiteral', '96';
     requires 'Perl::Critic::Policy::Variables::ProhibitLoopOnHash', '0.008';
-    requires 'Perl::Critic::Policy::Variables::ProhibitUnusedVarsStricter', '0.102';
+    requires 'Perl::Critic::Policy::Variables::ProhibitUnusedVarsStricter', '0.103';
     requires 'Perl::Critic::Policy::Variables::ProhibitUselessInitialization', '0.02';
     requires 'Test2::V0';
     requires 'Test::CPAN::Changes';
@@ -132,8 +133,8 @@ on develop => sub {
     requires 'Test::Mojibake';
     requires 'Test::More', '0.88';
     requires 'Test::NoTabs';
-    requires 'Test::Perl::Critic';
-    requires 'Test::PerlTidy';
+    requires 'Test::Perl::Critic::XTFiles';
+    requires 'Test::PerlTidy::XTFiles';
     requires 'Test::Pod', '1.26';
     requires 'Test::Pod::LinkCheck';
     requires 'Test::Pod::Links', '0.003';
@@ -141,6 +142,7 @@ on develop => sub {
     requires 'Test::RequiredMinimumDependencyVersion', '0.003';
     requires 'Test::Spelling', '0.12';
     requires 'Test::Version', '0.04';
+    requires 'XT::Files';
     requires 'XT::Util';
     requires 'lib';
 };
