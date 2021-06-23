@@ -4,5 +4,5 @@
 .build
 .perlcritic_package.yml
 Test-Spelling-Comment-*
-dzil-inc
+dzil-bundle
 tmp

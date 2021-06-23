@@ -149,10 +149,7 @@ on develop => sub {
 feature 'dzil', 'Dist::Zilla' => sub {
 on develop => sub {
         requires 'App::Prove';
-        requires 'CHI';
         requires 'CPAN::Meta::Prereqs::Filter';
-        requires 'CPAN::Meta::YAML';
-        requires 'CPAN::Perl::Releases';
         requires 'Dist::Zilla';
         requires 'Dist::Zilla::File::InMemory';
         requires 'Dist::Zilla::File::OnDisk';
@@ -213,14 +210,11 @@ on develop => sub {
         requires 'Dist::Zilla::Types', '6.000';
         requires 'Dist::Zilla::Util';
         requires 'Dist::Zilla::Util::BundleInfo';
-        requires 'Dist::Zilla::Util::CurrentCmd';
         requires 'Dist::Zilla::Util::ExpandINI::Reader';
         requires 'File::Compare';
-        requires 'File::HomeDir';
         requires 'File::Spec';
         requires 'File::Temp';
         requires 'File::pushd';
-        requires 'HTTP::Tiny';
         requires 'List::Util';
         requires 'Module::CPANfile', '1.1004';
         requires 'Module::Metadata';
@@ -228,10 +222,8 @@ on develop => sub {
         requires 'Moose::Role';
         requires 'Perl::MinimumVersion', '1.26';
         requires 'Term::ANSIColor';
-        requires 'Text::Template';
         requires 'constant';
         requires 'namespace::autoclean', '0.09';
         requires 'perl', '5.010';
-        requires 'version', '0.77';
 };
 };
