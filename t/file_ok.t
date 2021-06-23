@@ -24,8 +24,8 @@ sub main {
         my $obj = $class->new;
 
         #
-        like( exception { $obj->file_ok() },      qr{usage: file_ok[(]FILE[)]}, 'file_ok() throws an exception with too few arguments' );
-        like( exception { $obj->file_ok(undef) }, qr{usage: file_ok[(]FILE[)]}, '... undef for a file name' );
+        like( exception { $obj->file_ok() },                 qr{usage: file_ok[(]FILE[)]}, 'file_ok() throws an exception with too few arguments' );
+        like( exception { $obj->file_ok(undef) },            qr{usage: file_ok[(]FILE[)]}, '... undef for a file name' );
         like( exception { $obj->file_ok( 'file', 'name' ) }, qr{usage: file_ok[(]FILE[)]}, '... too many arguments' );
     }
 
@@ -99,7 +99,7 @@ sub main {
         my $rc = $obj->file_ok($file);
         test_test('file_ok success');
 
-        is( $rc, 1, '... returns 1' );
+        is( $rc,     1,                '... returns 1' );
         is( $string, $string_expected, 'parse_from_string got passed the correct file content' );
     }
 
@@ -128,7 +128,7 @@ sub main {
         my $rc = $obj->file_ok($file);
         test_test('file_ok success');
 
-        is( $rc, 1, '... returns 1' );
+        is( $rc,     1,                '... returns 1' );
         is( $string, $string_expected, 'parse_from_string got passed the correct file content' );
     }
 
@@ -157,7 +157,7 @@ sub main {
         my $rc = $obj->file_ok($file);
         test_test('file_ok success');
 
-        is( $rc, 1, '... returns 1' );
+        is( $rc,     1,                '... returns 1' );
         is( $string, $string_expected, 'parse_from_string got passed the correct file content' );
     }
 
@@ -186,7 +186,7 @@ sub main {
         my $rc = $obj->file_ok($file);
         test_test('file_ok success');
 
-        is( $rc, 1, '... returns 1' );
+        is( $rc,     1,                '... returns 1' );
         is( $string, $string_expected, 'parse_from_string got passed the correct file content' );
     }
 
@@ -214,7 +214,7 @@ sub main {
         my $rc = $obj->file_ok($file);
         test_test('file_ok success');
 
-        is( $rc, 1, '... returns 1' );
+        is( $rc,     1,                '... returns 1' );
         is( $string, $string_expected, 'parse_from_string got passed the correct file content' );
     }
 
@@ -276,7 +276,7 @@ sub main {
 
         is( $rc, undef, '... returns undef' );
 
-        is( @{$new_args_ref}, 1, '... 1 arguments was passed to new' );
+        is( @{$new_args_ref},    1,                       '... 1 arguments was passed to new' );
         is( ${$new_args_ref}[0], 'Comment::Spell::Check', '... the class name' );
     }
 
