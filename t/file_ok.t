@@ -8,9 +8,13 @@ use Test::Builder::Tester;
 use Test::Fatal;
 use Test::MockModule;
 use Test::More 0.88;
-use Test::TempDir::Tiny;
 
-use File::Spec;
+use Cwd            ();
+use File::Basename ();
+use File::Spec     ();
+use lib File::Spec->catdir( File::Basename::dirname( Cwd::abs_path __FILE__ ), 'lib' );
+
+use Local::Test::TempDir qw(tempdir);
 
 use Test::Spelling::Comment 0.003;
 

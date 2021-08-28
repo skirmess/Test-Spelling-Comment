@@ -16,13 +16,14 @@ on configure => sub {
 
 on test => sub {
     requires 'Cwd';
+    requires 'Exporter', '5.57';
     requires 'File::Basename';
+    requires 'File::Path';
     requires 'File::Spec';
     requires 'Test::Builder::Tester';
     requires 'Test::Fatal';
     requires 'Test::MockModule';
     requires 'Test::More', '0.88';
-    requires 'Test::TempDir::Tiny';
     requires 'constant';
     requires 'lib';
     requires 'subs';

@@ -1,2 +1,2 @@
 [ControlStructures::ProhibitPostfixControls]
-flowcontrol = Carp::croak
+flowcontrol = Carp::croak croak
