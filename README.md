@@ -14,8 +14,8 @@ Version 0.005
 # DESCRIPTION
 
 `Test::Spelling::Comment` lets you check the spelling of your code
-comments, and report its results in standard [Test::More](https://metacpan.org/pod/Test::More)
-fashion. This module uses [Comment::Spell::Check](https://metacpan.org/pod/Comment::Spell::Check) to
+comments, and report its results in standard [Test::More](https://metacpan.org/pod/Test%3A%3AMore)
+fashion. This module uses [Comment::Spell::Check](https://metacpan.org/pod/Comment%3A%3ASpell%3A%3ACheck) to
 do the checking, which requires a spellcheck program such as `spell`,
 `aspell`, `ispell`, or `hunspell`.
 
@@ -41,7 +41,7 @@ The following arguments are supported:
 The `skip` argument is either a string or an array ref of strings or regex
 patterns. Every pattern is substituted for the empty string on every line of
 the input file. This happens before passing the file over to
-[Comment::Spell::Check](https://metacpan.org/pod/Comment::Spell::Check) for spell checking.
+[Comment::Spell::Check](https://metacpan.org/pod/Comment%3A%3ASpell%3A%3ACheck) for spell checking.
 
 Use this option to remove parts of the file that would otherwise require you
 to add multiple `stopwords`. An example would be lines like these:
@@ -50,9 +50,9 @@ to add multiple `stopwords`. An example would be lines like these:
 
 ### stopwords (optional)
 
-The `stopwords` argument must be a [Pod::Wordlist](https://metacpan.org/pod/Pod::Wordlist) instance,
+The `stopwords` argument must be a [Pod::Wordlist](https://metacpan.org/pod/Pod%3A%3AWordlist) instance,
 or something compatible. You can use that argument to configure
-[Pod::Wordlist](https://metacpan.org/pod/Pod::Wordlist) to your liking.
+[Pod::Wordlist](https://metacpan.org/pod/Pod%3A%3AWordlist) to your liking.
 
 ## file\_ok( FILENAME )
 
@@ -62,7 +62,7 @@ something _false_.
 
 ## all\_files\_ok
 
-Calls the `all_files` method of [Test::XTFiles](https://metacpan.org/pod/Test::XTFiles) to get all the files to
+Calls the `all_files` method of [Test::XTFiles](https://metacpan.org/pod/Test%3A%3AXTFiles) to get all the files to
 be tested. All files will be checked by calling `file_ok`.
 
 It calls `done_testing` or `skip_all` so you can't have already called
@@ -71,11 +71,11 @@ It calls `done_testing` or `skip_all` so you can't have already called
 `all_files_ok` returns something _true_ if all files test ok and _false_
 otherwise.
 
-Please see [XT::Files](https://metacpan.org/pod/XT::Files) for how to configure the files to be checked.
+Please see [XT::Files](https://metacpan.org/pod/XT%3A%3AFiles) for how to configure the files to be checked.
 
 WARNING: The API was changed with 0.005. Arguments to `all_files_ok`
 are now silently discarded and the method is now configured with
-[XT::Files](https://metacpan.org/pod/XT::Files).
+[XT::Files](https://metacpan.org/pod/XT%3A%3AFiles).
 
 ## add\_stopwords( @entries )
 
@@ -88,14 +88,14 @@ used to chain methods together.
 This method can be called multiple times.
 
 This method only adds the words as passed in `@entries`. Unlike
-`learn_stopwords` from [Pod::Wordlist](https://metacpan.org/pod/Pod::Wordlist) it does not add the
+`learn_stopwords` from [Pod::Wordlist](https://metacpan.org/pod/Pod%3A%3AWordlist) it does not add the
 words plural too.
 
 # EXAMPLES
 
 ## Example 1 Default usage
 
-Check the spelling in all files returned by [XT::Files](https://metacpan.org/pod/XT::Files).
+Check the spelling in all files returned by [XT::Files](https://metacpan.org/pod/XT%3A%3AFiles).
 
     use 5.006;
     use strict;
@@ -177,9 +177,9 @@ directory and remove the `vim` comment.
 
 # SEE ALSO
 
-[Comment::Spell::Check](https://metacpan.org/pod/Comment::Spell::Check),
-[Comment::Spell](https://metacpan.org/pod/Comment::Spell), [Test::More](https://metacpan.org/pod/Test::More),
-[XT::Files](https://metacpan.org/pod/XT::Files)
+[Comment::Spell::Check](https://metacpan.org/pod/Comment%3A%3ASpell%3A%3ACheck),
+[Comment::Spell](https://metacpan.org/pod/Comment%3A%3ASpell), [Test::More](https://metacpan.org/pod/Test%3A%3AMore),
+[XT::Files](https://metacpan.org/pod/XT%3A%3AFiles)
 
 # SUPPORT
 
