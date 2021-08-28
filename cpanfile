@@ -15,8 +15,9 @@ on configure => sub {
 };
 
 on test => sub {
+    requires 'Cwd';
+    requires 'File::Basename';
     requires 'File::Spec';
-    requires 'FindBin';
     requires 'Test::Builder::Tester';
     requires 'Test::Fatal';
     requires 'Test::MockModule';

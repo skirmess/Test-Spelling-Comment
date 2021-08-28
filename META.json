@@ -43,8 +43,9 @@
       },
       "test" : {
          "requires" : {
+            "Cwd" : "0",
+            "File::Basename" : "0",
             "File::Spec" : "0",
-            "FindBin" : "0",
             "Test::Builder::Tester" : "0",
             "Test::Fatal" : "0",
             "Test::MockModule" : "0",

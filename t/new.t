@@ -9,8 +9,10 @@ use Test::More 0.88;
 
 use Test::Spelling::Comment 0.003;
 
-use FindBin qw($RealBin);
-use lib "$RealBin/lib";
+use Cwd            ();
+use File::Basename ();
+use File::Spec     ();
+use lib File::Spec->catdir( File::Basename::dirname( Cwd::abs_path __FILE__ ), 'lib' );
 
 use Local::Pod::Wordlist;
 
