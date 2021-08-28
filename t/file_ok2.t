@@ -20,26 +20,29 @@ use Test::Spelling::Comment 0.003;
 main();
 
 sub main {
-    my $class = 'Test::Spelling::Comment';
+  SKIP:
+    {
+        my $class = 'Test::Spelling::Comment';
 
-    *Test::Spelling::Comment::open = sub { return };
+        *Test::Spelling::Comment::open = sub { return };
 
-    my $obj = $class->new;
+        my $obj = $class->new;
 
-    my $tmp  = tempdir();
-    my $file = File::Spec->catfile( $tmp, 'file.pm' );
+        my $tmp  = tempdir();
+        my $file = File::Spec->catfile( $tmp, 'file.pm' );
 
-    _touch($file);
+        _touch($file);
 
-    #
-    test_out("not ok 1 - $file");
-    test_fail(+3);
-    test_diag(q{});
-    test_err(qr{[#]\s+\QCannot read file '$file': \E.*\n?});
-    my $rc = $obj->file_ok($file);
-    test_test('file_ok fails if file cannot be read');
+        #
+        test_out("not ok 1 - $file");
+        test_fail(+3);
+        test_diag(q{});
+        test_err(qr{[#]\s+\QCannot read file '$file': \E.*\n?});
+        my $rc = $obj->file_ok($file);
+        test_test('file_ok fails if file cannot be read');
 
-    is( $rc, undef, '... returns undef' );
+        is( $rc, undef, '... returns undef' );
+    }
 
     # ----------------------------------------------------------
     done_testing();
@@ -56,7 +59,7 @@ sub _touch {
         }
     }
 
-    BAIL_OUT("Cannot write file '$file': $!");
+    skip "Test setup failed: Cannot write file '$file': $!";
 }
 
 # vim: ts=4 sts=4 sw=4 et: syntax=perl

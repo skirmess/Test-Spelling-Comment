@@ -1,13 +1,12 @@
 [ControlStructures::ProhibitPostfixControls]
 flowcontrol = BAIL_OUT die skip
 
-[-Freenode::DiscouragedModules]
 [-Modules::ProhibitMultiplePackages]
 [-RegularExpressions::RequireDotMatchAnything]
 [-RegularExpressions::RequireExtendedFormatting]
 [-RegularExpressions::RequireLineBoundaryMatching]
 
 [Subroutines::RequireFinalReturn]
-terminal_funcs = BAIL_OUT
+terminal_funcs = skip
 
 [-ValuesAndExpressions::RequireInterpolationOfMetachars]

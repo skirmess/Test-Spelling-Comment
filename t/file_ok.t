@@ -49,6 +49,7 @@ sub main {
     }
 
     note('file exists, without spelling errors');
+  SKIP:
     {
         my $tmp  = tempdir();
         my $file = File::Spec->catfile( $tmp, 'file.pm' );
@@ -75,6 +76,7 @@ sub main {
     }
 
     note('skip, single regex');
+  SKIP:
     {
         my $tmp  = tempdir();
         my $file = File::Spec->catfile( $tmp, 'file.pm' );
@@ -104,6 +106,7 @@ sub main {
     }
 
     note('skip, two regex');
+  SKIP:
     {
         my $tmp  = tempdir();
         my $file = File::Spec->catfile( $tmp, 'file.pm' );
@@ -133,6 +136,7 @@ sub main {
     }
 
     note('skip, two regex as string');
+  SKIP:
     {
         my $tmp  = tempdir();
         my $file = File::Spec->catfile( $tmp, 'file.pm' );
@@ -162,6 +166,7 @@ sub main {
     }
 
     note('skip, one regex as string');
+  SKIP:
     {
         my $tmp  = tempdir();
         my $file = File::Spec->catfile( $tmp, 'file.pm' );
@@ -191,6 +196,7 @@ sub main {
     }
 
     note('skip twice on same line');
+  SKIP:
     {
         my $tmp  = tempdir();
         my $file = File::Spec->catfile( $tmp, 'file.pm' );
@@ -219,6 +225,7 @@ sub main {
     }
 
     note('file exists, with spelling errors');
+  SKIP:
     {
         my $tmp  = tempdir();
         my $file = File::Spec->catfile( $tmp, 'file.pm' );
@@ -251,6 +258,7 @@ sub main {
     }
 
     note('file exists, Comment::Spell::Check throws an exception, without stopwords');
+  SKIP:
     {
         my $tmp  = tempdir();
         my $file = File::Spec->catfile( $tmp, 'file.pm' );
@@ -281,6 +289,7 @@ sub main {
     }
 
     note('file exists, Comment::Spell::Check throws an exception, with stopwords');
+  SKIP:
     {
         my $tmp  = tempdir();
         my $file = File::Spec->catfile( $tmp, 'file.pm' );
@@ -328,7 +337,7 @@ sub _touch {
         }
     }
 
-    BAIL_OUT("Cannot write file '$file': $!");
+    skip "Test setup failed: Cannot write file '$file': $!";
 }
 
 # vim: ts=4 sts=4 sw=4 et: syntax=perl
