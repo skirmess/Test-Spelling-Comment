@@ -49,10 +49,7 @@
             "File::Path" : "0",
             "File::Spec" : "0",
             "Test::Builder::Tester" : "0",
-            "Test::Fatal" : "0",
-            "Test::MockModule" : "0",
             "Test::More" : "0.88",
-            "constant" : "0",
             "lib" : "0",
             "perl" : "5.006",
             "subs" : "0"

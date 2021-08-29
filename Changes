@@ -2,7 +2,11 @@ Revision history for Test-Spelling-Comment
 
 {{$NEXT}}
 
+  - Moved test files depending on additional modules to xt/smoke/lib and
+    skip them during installation testing
+
 0.005  2019-08-03 23:39:53 UTC
+
   - API change: all_files_ok() no longer takes files or directories as
     arguments. The files to be tested is now obtained from XT::Files.
 

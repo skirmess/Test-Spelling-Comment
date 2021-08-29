@@ -21,16 +21,16 @@ on test => sub {
     requires 'File::Path';
     requires 'File::Spec';
     requires 'Test::Builder::Tester';
-    requires 'Test::Fatal';
-    requires 'Test::MockModule';
     requires 'Test::More', '0.88';
-    requires 'constant';
     requires 'lib';
     requires 'subs';
 };
 
 on develop => sub {
     requires 'CPAN';
+    requires 'Cwd';
+    requires 'File::Basename';
+    requires 'File::Spec';
     requires 'JSON::PP';
     requires 'Module::Info';
     requires 'Path::Tiny';
@@ -123,14 +123,17 @@ on develop => sub {
     requires 'Perl::Critic::Policy::Variables::ProhibitUnusedVarsStricter', '0.111';
     requires 'Perl::Critic::Policy::Variables::ProhibitUselessInitialization', '0.02';
     requires 'Test2::V0';
+    requires 'Test::Builder::Tester';
     requires 'Test::CPAN::Changes';
     requires 'Test::CPAN::Meta', '0.12';
     requires 'Test::CPAN::Meta::JSON';
     requires 'Test::CleanNamespaces';
     requires 'Test::DistManifest', '1.003';
     requires 'Test::EOL';
+    requires 'Test::Fatal';
     requires 'Test::Kwalitee';
     requires 'Test::MinimumVersion', '0.008';
+    requires 'Test::MockModule';
     requires 'Test::Mojibake';
     requires 'Test::More', '0.88';
     requires 'Test::NoTabs';
@@ -145,6 +148,7 @@ on develop => sub {
     requires 'Test::Version', '0.04';
     requires 'XT::Files';
     requires 'XT::Util';
+    requires 'constant';
     requires 'lib';
 };
 feature 'dzil', 'Dist::Zilla' => sub {
@@ -220,7 +224,6 @@ on develop => sub {
         requires 'Dist::Zilla::Util::BundleInfo';
         requires 'Dist::Zilla::Util::ExpandINI::Reader';
         requires 'File::Compare';
-        requires 'File::Spec';
         requires 'File::Temp';
         requires 'File::pushd';
         requires 'List::Util';
@@ -235,7 +238,6 @@ on develop => sub {
         requires 'Safe::Isa';
         requires 'Term::ANSIColor';
         requires 'YAML::Tiny';
-        requires 'constant';
         requires 'namespace::autoclean', '0.09';
         requires 'perl', '5.010';
         requires 'version', '0.77';
