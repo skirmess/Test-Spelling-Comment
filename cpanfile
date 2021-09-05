@@ -172,7 +172,6 @@ on develop => sub {
         requires 'Dist::Zilla::Plugin::CheckStrictVersion';
         requires 'Dist::Zilla::Plugin::Code::AfterBuild';
         requires 'Dist::Zilla::Plugin::Code::FileMunger', '0.007';
-        requires 'Dist::Zilla::Plugin::Code::MetaProvider';
         requires 'Dist::Zilla::Plugin::Code::PrereqSource';
         requires 'Dist::Zilla::Plugin::ConfirmRelease';
         requires 'Dist::Zilla::Plugin::ExecDir';
@@ -189,7 +188,7 @@ on develop => sub {
         requires 'Dist::Zilla::Plugin::Git::Tag';
         requires 'Dist::Zilla::Plugin::GithubMeta';
         requires 'Dist::Zilla::Plugin::License';
-        requires 'Dist::Zilla::Plugin::MakeMaker::Awesome';
+        requires 'Dist::Zilla::Plugin::MakeMaker::Awesome', '0.49';
         requires 'Dist::Zilla::Plugin::Manifest';
         requires 'Dist::Zilla::Plugin::ManifestSkip';
         requires 'Dist::Zilla::Plugin::MetaJSON';
@@ -214,7 +213,6 @@ on develop => sub {
         requires 'Dist::Zilla::Role::FileFinderUser';
         requires 'Dist::Zilla::Role::FileGatherer';
         requires 'Dist::Zilla::Role::FileMunger';
-        requires 'Dist::Zilla::Role::PluginBundle::Config::Slicer';
         requires 'Dist::Zilla::Role::PluginBundle::Easy';
         requires 'Dist::Zilla::Role::PrereqSource';
         requires 'Dist::Zilla::Role::TestRunner';

@@ -64,8 +64,8 @@ my %FallbackPrereqs = (
 );
 
 if ( $ENV{AUTOMATED_TESTING} || $ENV{EXTENDED_TESTING} ) {
-    $WriteMakefileArgs{test}{TESTS} .= ' xt/smoke/*.t';
-    _add_smoker_test_requirements();
+    $WriteMakefileArgs{test}{TESTS} .= ' xt/*.t';
+    _add_extended_test_requirements();
 }
 
 if ( !eval { ExtUtils::MakeMaker->VERSION('6.63_03') } ) {
@@ -86,7 +86,7 @@ sub test_requires {
     return;
 }
 
-sub _add_smoker_test_requirements {
+sub _add_extended_test_requirements {
     test_requires( 'Test::Fatal',      0 );
     test_requires( 'Test::MockModule', 0 );
     test_requires( 'constant',         0 );
