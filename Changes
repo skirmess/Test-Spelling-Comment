@@ -2,6 +2,8 @@ Revision history for Test-Spelling-Comment
 
 {{$NEXT}}
 
+  - use redefine() instead of mock() from Test::MockModule
+  - Switch license to the ISC license
   - Moved test files depending on additional modules to xt and skip them
     during installation testing
 

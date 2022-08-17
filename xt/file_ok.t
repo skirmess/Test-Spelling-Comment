@@ -1,12 +1,28 @@
 #!perl
 
+# vim: ts=4 sts=4 sw=4 et: syntax=perl
+#
+# Copyright (c) 2018-2022 Sven Kirmess
+#
+# Permission to use, copy, modify, and distribute this software for any
+# purpose with or without fee is hereby granted, provided that the above
+# copyright notice and this permission notice appear in all copies.
+#
+# THE SOFTWARE IS PROVIDED "AS IS" AND THE AUTHOR DISCLAIMS ALL WARRANTIES
+# WITH REGARD TO THIS SOFTWARE INCLUDING ALL IMPLIED WARRANTIES OF
+# MERCHANTABILITY AND FITNESS. IN NO EVENT SHALL THE AUTHOR BE LIABLE FOR
+# ANY SPECIAL, DIRECT, INDIRECT, OR CONSEQUENTIAL DAMAGES OR ANY DAMAGES
+# WHATSOEVER RESULTING FROM LOSS OF USE, DATA OR PROFITS, WHETHER IN AN
+# ACTION OF CONTRACT, NEGLIGENCE OR OTHER TORTIOUS ACTION, ARISING OUT OF
+# OR IN CONNECTION WITH THE USE OR PERFORMANCE OF THIS SOFTWARE.
+
 use 5.006;
 use strict;
 use warnings;
 
 use Test::Builder::Tester;
 use Test::Fatal;
-use Test::MockModule;
+use Test::MockModule 0.14;
 use Test::More 0.88;
 
 use Cwd            ();
@@ -67,7 +83,7 @@ sub main {
         my $result_return = { counts => {}, fails => [] };
 
         my $string;
-        $module->mock( 'parse_from_string', sub { $_[0]->output_filehandle->print($result_print); $string = $_[1]; return $result_return; } );
+        $module->redefine( 'parse_from_string', sub { $_[0]->output_filehandle->print($result_print); $string = $_[1]; return $result_return; } );
 
         my $obj = $class->new;
 
@@ -97,7 +113,7 @@ sub main {
         my $result_return = { counts => {}, fails => [] };
 
         my $string;
-        $module->mock( 'parse_from_string', sub { $_[0]->output_filehandle->print($result_print); $string = $_[1]; return $result_return; } );
+        $module->redefine( 'parse_from_string', sub { $_[0]->output_filehandle->print($result_print); $string = $_[1]; return $result_return; } );
 
         my $obj = $class->new( skip => qr{ ^ [#] [ ] vim: [ ] .*}xs );
 
@@ -127,7 +143,7 @@ sub main {
         my $result_return = { counts => {}, fails => [] };
 
         my $string;
-        $module->mock( 'parse_from_string', sub { $_[0]->output_filehandle->print($result_print); $string = $_[1]; return $result_return; } );
+        $module->redefine( 'parse_from_string', sub { $_[0]->output_filehandle->print($result_print); $string = $_[1]; return $result_return; } );
 
         my $obj = $class->new( skip => [ qr{this will not match anything}, qr{ ^ [#] [ ] vim: [ ] .*}xs ] );
 
@@ -157,7 +173,7 @@ sub main {
         my $result_return = { counts => {}, fails => [] };
 
         my $string;
-        $module->mock( 'parse_from_string', sub { $_[0]->output_filehandle->print($result_print); $string = $_[1]; return $result_return; } );
+        $module->redefine( 'parse_from_string', sub { $_[0]->output_filehandle->print($result_print); $string = $_[1]; return $result_return; } );
 
         my $obj = $class->new( skip => [ 'this will not match anything', '^[#][ ]vim:[ ].*' ] );
 
@@ -187,7 +203,7 @@ sub main {
         my $result_return = { counts => {}, fails => [] };
 
         my $string;
-        $module->mock( 'parse_from_string', sub { $_[0]->output_filehandle->print($result_print); $string = $_[1]; return $result_return; } );
+        $module->redefine( 'parse_from_string', sub { $_[0]->output_filehandle->print($result_print); $string = $_[1]; return $result_return; } );
 
         my $obj = $class->new( skip => '^[#][ ]vim:[ ].*' );
 
@@ -216,7 +232,7 @@ sub main {
         my $result_return = { counts => {}, fails => [] };
 
         my $string;
-        $module->mock( 'parse_from_string', sub { $_[0]->output_filehandle->print($result_print); $string = $_[1]; return $result_return; } );
+        $module->redefine( 'parse_from_string', sub { $_[0]->output_filehandle->print($result_print); $string = $_[1]; return $result_return; } );
 
         my $obj = $class->new( skip => '(?i)http(s)?://[^\s]+' );
 
@@ -244,7 +260,7 @@ sub main {
             fails  => [ { counts => { helol => 1, wordl => 1 }, line => 2 } ],
         };
 
-        $module->mock( 'parse_from_string', sub { $_[0]->output_filehandle->print($result_print); return $result_return; } );
+        $module->redefine( 'parse_from_string', sub { $_[0]->output_filehandle->print($result_print); return $result_return; } );
 
         my $obj = $class->new;
 
@@ -271,10 +287,10 @@ sub main {
 
         my $module = Test::MockModule->new('Comment::Spell::Check');
 
-        $module->mock( 'parse_from_string', sub { die "PARSE FROM STRING FAILED\n"; } );
+        $module->redefine( 'parse_from_string', sub { die "PARSE FROM STRING FAILED\n"; } );
 
         my $new_args_ref;
-        $module->mock( 'new', sub { $new_args_ref = [@_]; $module->original('new')->(@_); } );
+        $module->redefine( 'new', sub { $new_args_ref = [@_]; $module->original('new')->(@_); } );
 
         my $obj = $class->new;
 
@@ -302,10 +318,10 @@ sub main {
 
         my $module = Test::MockModule->new('Comment::Spell::Check');
 
-        $module->mock( 'parse_from_string', sub { die "PARSE FROM FILE FAILED\n"; } );
+        $module->redefine( 'parse_from_string', sub { die "PARSE FROM FILE FAILED\n"; } );
 
         my $new_args_ref;
-        $module->mock( 'new', sub { $new_args_ref = [@_]; $module->original('new')->(@_); } );
+        $module->redefine( 'new', sub { $new_args_ref = [@_]; $module->original('new')->(@_); } );
 
         my $obj = $class->new;
         $obj->add_stopwords('abcdefg');
@@ -343,5 +359,3 @@ sub _touch {
 
     skip "Test setup failed: Cannot write file '$file': $!";
 }
-
-# vim: ts=4 sts=4 sw=4 et: syntax=perl

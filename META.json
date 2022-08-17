@@ -6,7 +6,7 @@
    "dynamic_config" : 1,
    "generated_by" : "Dist::Zilla, CPAN::Meta::Converter",
    "license" : [
-      "freebsd"
+      "open_source"
    ],
    "meta-spec" : {
       "url" : "http://search.cpan.org/perldoc?CPAN::Meta::Spec",
@@ -44,10 +44,11 @@
       "test" : {
          "requires" : {
             "Cwd" : "0",
-            "Exporter" : "5.57",
+            "Exporter" : "0",
             "File::Basename" : "0",
-            "File::Path" : "0",
+            "File::Path" : "2.07",
             "File::Spec" : "0",
+            "File::Spec::Functions" : "0",
             "Test::Builder::Tester" : "0",
             "Test::More" : "0.88",
             "lib" : "0",
@@ -68,7 +69,6 @@
          "web" : "https://github.com/skirmess/Test-Spelling-Comment"
       }
    },
-   "version" : "0.005",
-   "x_spdx_expression" : "BSD-2-Clause-FreeBSD"
+   "version" : "0.005"
 }
 

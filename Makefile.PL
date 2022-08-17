@@ -27,10 +27,11 @@ my %WriteMakefileArgs = (
     },
     TEST_REQUIRES => {
         Cwd                     => 0,
-        Exporter                => '5.57',
+        Exporter                => 0,
         'File::Basename'        => 0,
-        'File::Path'            => 0,
+        'File::Path'            => '2.07',
         'File::Spec'            => 0,
+        'File::Spec::Functions' => 0,
         'Test::Builder::Tester' => 0,
         'Test::More'            => '0.88',
         lib                     => 0,
@@ -46,10 +47,11 @@ my %FallbackPrereqs = (
     Carp                    => 0,
     'Comment::Spell::Check' => 0,
     Cwd                     => 0,
-    Exporter                => '5.57',
+    Exporter                => 0,
     'File::Basename'        => 0,
-    'File::Path'            => 0,
+    'File::Path'            => '2.07',
     'File::Spec'            => 0,
+    'File::Spec::Functions' => 0,
     Moo                     => 0,
     'Pod::Wordlist'         => 0,
     'Scalar::Util'          => 0,
@@ -88,7 +90,7 @@ sub test_requires {
 
 sub _add_extended_test_requirements {
     test_requires( 'Test::Fatal',      0 );
-    test_requires( 'Test::MockModule', 0 );
+    test_requires( 'Test::MockModule', '0.14' );
     test_requires( 'constant',         0 );
     return;
 }
