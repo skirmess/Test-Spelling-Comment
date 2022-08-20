@@ -2,10 +2,11 @@ Revision history for Test-Spelling-Comment
 
 {{$NEXT}}
 
-  - use redefine() instead of mock() from Test::MockModule
+  - Use redefine() instead of mock() from Test::MockModule
   - Switch license to the ISC license
   - Moved test files depending on additional modules to xt and skip them
     during installation testing
+  - Removed test dependency on Test::Fatal
 
 0.005  2019-08-03 23:39:53 UTC
 

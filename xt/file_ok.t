@@ -21,7 +21,6 @@ use strict;
 use warnings;
 
 use Test::Builder::Tester;
-use Test::Fatal;
 use Test::MockModule 0.14;
 use Test::More 0.88;
 
@@ -30,7 +29,8 @@ use File::Basename ();
 use File::Spec     ();
 use lib File::Spec->catdir( File::Basename::dirname( Cwd::abs_path __FILE__ ), '../t/lib' );
 
-use Local::Test::TempDir qw(tempdir);
+use Local::Test::Exception qw(exception);
+use Local::Test::TempDir   qw(tempdir);
 
 use Test::Spelling::Comment 0.003;
 
